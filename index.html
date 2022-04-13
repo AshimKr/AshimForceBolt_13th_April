@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    
+    <title>Login Page</title>
+  </head>
+
+  <body>
+    <h2 style="text-align: center;">Login Form</h2>
+
+    <form onsubmit="onSubmit(event)">
+      <div class="imgcontainer">
+        <img
+          src="https://media.istockphoto.com/vectors/user-profile-or-my-account-avatar-login-icon-with-man-male-face-smile-vector-id1224774389?k=20&m=1224774389&s=170667a&w=0&h=0u7Arol2CQZF-rG58MtRT8kIO9c5_zC2OvABYPmH6tU="
+          alt="Avatar"
+          class="avatar"
+        />
+      </div>
+
+      <div class="container">
+        <label for="uname"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="uname" required id="inputEmail3"/>
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          id="inputPassword3"
+          required
+        />
+
+        <button >Login</button>
+      </div>
+
+      
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      
+    </form>
+
+    <script>
+
+      
+function onSubmit(e){
+        e.preventDefault();
+        const email = document.getElementById("inputEmail3").value;
+        const password = document.getElementById("inputPassword3").value;
+
+        // console.log(email, password);
+
+
+        // const req = {
+        //     "email": "eve.holt@reqres.in",
+        //     "password": "cityslicka"
+        // };
+        var xhttp = new XMLHttpRequest;
+        
+
+        xhttp.open('POST','https://reqres.in/api/login');
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        
+        xhttp.onload = function(){
+            let data = xhttp.response;
+            let res = JSON.parse(data);
+            // console.log(typeof res);
+
+            if(res.token == 'QpwL5tke4Pnpja7X4'){
+                // console.log(res.token);
+                window.location = './Lists.html';
+                
+            }else{
+                alert('email or passsword is wrong')
+            }
+        };
+
+        xhttp.onerror = function(){
+            alert('something went wrong');
+        };
+        
+        xhttp.send( `email=${email}&password=${password}` );
+}
+    </script>
+  </body>
+</html>
